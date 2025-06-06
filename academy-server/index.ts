@@ -11,7 +11,7 @@ import * as Sentry from "@sentry/bun";
 
 const app = new Elysia()
   .use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'], // Frontend URLs
+    origin: ['http://localhost:5173', 'http://localhost:4173', 'http://localhost:5174', 'http://localhost:3000'], // Frontend URLs
     credentials: true
   }))
   .onRequest(({ request }) => {
