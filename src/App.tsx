@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import * as Sentry from '@sentry/react';
 import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './hooks/useAuth';
 import MainLayout from './components/layout/MainLayout';
@@ -11,6 +12,9 @@ import MyCoursesPage from './pages/MyCoursesPage';
 import FavoritesPage from './pages/FavoritesPage';
 import LessonPlansPage from './pages/LessonPlansPage';
 import ProfilePage from './pages/ProfilePage';
+
+// Create Sentry-wrapped Routes component
+const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 // Protected route component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -31,7 +35,7 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
-        <Routes>
+        <SentryRoutes>
           <Route path="/login" element={<LoginPage />} />
 
           <Route path="/" element={<MainLayout />}>
@@ -79,7 +83,7 @@ const App = () => {
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        </SentryRoutes>
       </Router>
     </AuthProvider>
   );
