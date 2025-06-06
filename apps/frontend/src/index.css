@@ -1,12 +1,98 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
-/* Highlight code blocks theme */
+/* Cyberpunk theme base styles */
+:root {
+  --font-mono: 'Fira Code', 'Cascadia Code', 'Roboto Mono', monospace;
+  --font-mono-italic: 'Fira Code', 'Cascadia Code', 'Roboto Mono', monospace;
+  --font-cyber: 'Orbitron', sans-serif;
+  --font-body: 'Rajdhani', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a0f2e 100%);
+  min-height: 100vh;
+  color: #e0e0e0;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a24;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00fff0, #8000ff);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00fff0, #ff0080);
+}
+
+/* Cyberpunk text glow effect */
+.text-glow {
+  text-shadow: 0 0 10px currentColor;
+}
+
+.text-glow-cyan {
+  color: #00fff0;
+  text-shadow: 0 0 5px #00fff0, 0 0 10px #00fff0, 0 0 15px #00fff0;
+}
+
+.text-glow-pink {
+  color: #ff0080;
+  text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080, 0 0 15px #ff0080;
+}
+
+.text-glow-purple {
+  color: #8000ff;
+  text-shadow: 0 0 5px #8000ff, 0 0 10px #8000ff, 0 0 15px #8000ff;
+}
+
+/* Cyberpunk border animations */
+.border-glow {
+  border: 1px solid currentColor;
+  box-shadow: 0 0 5px currentColor;
+}
+
+@keyframes borderGlow {
+  0%, 100% { border-color: #00fff0; box-shadow: 0 0 5px #00fff0; }
+  25% { border-color: #ff0080; box-shadow: 0 0 5px #ff0080; }
+  50% { border-color: #8000ff; box-shadow: 0 0 5px #8000ff; }
+  75% { border-color: #00ff80; box-shadow: 0 0 5px #00ff80; }
+}
+
+.border-rainbow {
+  animation: borderGlow 4s ease-in-out infinite;
+}
+
+/* Highlight code blocks theme - Enhanced cyberpunk */
 pre {
-  background: rgb(20, 20, 20);
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a24 100%);
   border-radius: 0.5rem;
-  color: rgb(220, 220, 220);
+  border: 1px solid #00fff033;
+  color: #e0e0e0;
   margin: 1.5rem 0;
   padding: 0.75rem 1rem;
+  box-shadow: 0 0 20px #00fff011;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00fff0, transparent);
+  }
 
   code {
     font-family: var(--font-mono);
@@ -16,12 +102,12 @@ pre {
     padding: 0;
   }
 
-  /* Code styling based on Night Wolf Black theme */
+  /* Enhanced cyberpunk code styling */
   .hljs-comment,
   .hljs-quote {
     font-family: var(--font-mono-italic);
     font-style: italic;
-    color: rgb(140, 140, 140);
+    color: #606060;
   }
 
   .hljs-variable,
@@ -34,7 +120,8 @@ pre {
   .hljs-name,
   .hljs-selector-id,
   .hljs-selector-class {
-    color: #ff6b6b;
+    color: #ff0080;
+    text-shadow: 0 0 3px #ff008033;
   }
 
   .hljs-number,
@@ -44,23 +131,27 @@ pre {
   .hljs-literal,
   .hljs-type,
   .hljs-params {
-    color: #ffd700;
+    color: #ffff00;
+    text-shadow: 0 0 3px #ffff0033;
   }
 
   .hljs-string,
   .hljs-symbol,
   .hljs-bullet {
-    color: #98fb98;
+    color: #00ff80;
+    text-shadow: 0 0 3px #00ff8033;
   }
 
   .hljs-title,
   .hljs-section {
-    color: #00bfff;
+    color: #00fff0;
+    text-shadow: 0 0 3px #00fff033;
   }
 
   .hljs-keyword,
   .hljs-selector-tag {
-    color: #ff69b4;
+    color: #8000ff;
+    text-shadow: 0 0 3px #8000ff33;
   }
 
   .hljs-emphasis {
@@ -70,4 +161,26 @@ pre {
   .hljs-strong {
     font-weight: 700;
   }
+}
+
+/* Input focus effects */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #00fff0;
+  box-shadow: 0 0 0 1px #00fff0, 0 0 10px #00fff033;
+}
+
+/* Custom utility classes */
+.font-cyber {
+  font-family: var(--font-cyber);
+}
+
+.bg-cyber-gradient {
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a0f2e 100%);
+}
+
+.bg-cyber-card {
+  background: linear-gradient(135deg, #1a1a24 0%, #252538 100%);
+  border: 1px solid #00fff022;
+  box-shadow: 0 4px 20px #00000040;
 }

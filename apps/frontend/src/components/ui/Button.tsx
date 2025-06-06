@@ -24,14 +24,14 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
+  const baseClasses = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-cyber-dark disabled:opacity-50 disabled:pointer-events-none border font-cyber';
   
   const variantClasses = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500',
-    secondary: 'bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500',
-    outline: 'border border-gray-300 bg-transparent hover:bg-gray-100 focus-visible:ring-gray-500',
-    ghost: 'bg-transparent hover:bg-gray-100 focus-visible:ring-gray-500',
-    link: 'bg-transparent underline-offset-4 hover:underline text-blue-600 hover:text-blue-800 p-0 h-auto'
+    primary: 'bg-gradient-to-r from-cyber-cyan to-cyber-purple text-cyber-dark hover:from-cyber-purple hover:to-cyber-pink focus-visible:ring-cyber-cyan border-cyber-cyan shadow-neon-cyan hover:shadow-neon-purple',
+    secondary: 'bg-cyber-surface-light text-cyber-cyan border-cyber-cyan/50 hover:bg-cyber-surface-hover hover:border-cyber-cyan hover:text-cyber-text focus-visible:ring-cyber-cyan hover:shadow-glow-sm',
+    outline: 'border-cyber-cyan/50 bg-transparent text-cyber-cyan hover:bg-cyber-cyan/10 hover:border-cyber-cyan hover:shadow-glow-sm focus-visible:ring-cyber-cyan',
+    ghost: 'bg-transparent text-cyber-text-muted hover:bg-cyber-surface-hover hover:text-cyber-cyan border-transparent focus-visible:ring-cyber-cyan',
+    link: 'bg-transparent underline-offset-4 hover:underline text-cyber-cyan hover:text-cyber-pink p-0 h-auto border-transparent'
   };
   
   const sizeClasses = {

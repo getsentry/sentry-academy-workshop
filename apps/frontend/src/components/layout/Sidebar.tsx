@@ -33,14 +33,20 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   return (
     <Link
       to={to}
-      className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
+      className={`flex items-center px-4 py-3 rounded-lg transition-all duration-200 group ${
         isActive
-          ? 'bg-blue-50 text-blue-700'
-          : 'text-gray-700 hover:bg-gray-100'
+          ? 'bg-cyber-surface-light text-cyber-cyan border border-cyber-cyan/30 shadow-glow'
+          : 'text-cyber-text-muted hover:bg-cyber-surface-hover hover:text-cyber-cyan hover:border-cyber-cyan/20 border border-transparent'
       }`}
     >
-      <span className="text-lg">{icon}</span>
-      {!isCollapsed && <span className="ml-3 transition-opacity duration-200">{label}</span>}
+      <span className={`text-lg transition-all duration-200 ${isActive ? 'text-glow' : 'group-hover:text-glow'}`}>
+        {icon}
+      </span>
+      {!isCollapsed && (
+        <span className={`ml-3 transition-all duration-200 font-medium ${isActive ? 'text-glow-cyan' : ''}`}>
+          {label}
+        </span>
+      )}
     </Link>
   );
 };
@@ -57,21 +63,21 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className={`h-screen bg-white border-r border-gray-200 flex flex-col transition-all duration-300 relative ${
+    <div className={`h-screen bg-cyber-surface border-r border-cyber-cyan/20 flex flex-col transition-all duration-300 relative backdrop-blur-sm ${
       isCollapsed ? 'w-16' : 'w-64'
     } ${className}`}>
       <div className="px-4 py-5 flex items-center justify-between">
         <div className="flex items-center">
-          <GraduationCap className="h-8 w-8 text-blue-600" />
+          <GraduationCap className="h-8 w-8 text-cyber-cyan text-glow animate-pulse-glow" />
           {!isCollapsed && (
-            <h1 className="ml-2 text-xl font-bold text-gray-900">
+            <h1 className="ml-2 text-xl font-bold text-cyber-text font-cyber text-glow-cyan">
               Sentry Academy
             </h1>
           )}
         </div>
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-1 rounded-full text-gray-500 hover:bg-gray-100 absolute -right-3 top-6 bg-white border border-gray-200 shadow-sm"
+          className="p-1 rounded-full text-cyber-text-muted hover:text-cyber-cyan hover:bg-cyber-surface-hover absolute -right-3 top-6 bg-cyber-surface border border-cyber-cyan/30 shadow-neon-cyan transition-all duration-200"
           aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
@@ -79,8 +85,8 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
       </div>
 
       {user && !isCollapsed && (
-        <div className="px-4 py-3 mb-4 border-b border-gray-200">
-          <div className="flex items-center">
+        <div className="px-4 py-3 mb-4 border-b border-cyber-cyan/20">
+          <div className="flex items-center bg-cyber-surface-light rounded-lg p-3 border border-cyber-cyan/20">
             <Avatar
               src={user.avatar}
               alt={user.name}
@@ -88,8 +94,8 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
               size="md"
             />
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">{user.name}</p>
-              <p className="text-xs text-gray-500">{user.email}</p>
+              <p className="text-sm font-medium text-cyber-text font-cyber">{user.name}</p>
+              <p className="text-xs text-cyber-text-dim">{user.email}</p>
             </div>
           </div>
         </div>
@@ -133,7 +139,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
         />
       </nav>
 
-      <div className="border-t border-gray-200 px-2 py-3 space-y-1">
+      <div className="border-t border-cyber-cyan/20 px-2 py-3 space-y-1 bg-cyber-surface-light/50">
         <SidebarItem
           to="/profile"
           icon={<User size={20} />}

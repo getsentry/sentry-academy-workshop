@@ -26,29 +26,31 @@ const HomePage: React.FC = () => {
       
       {loading ? (
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading courses...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyber-cyan mx-auto shadow-neon-cyan"></div>
+          <p className="mt-4 text-cyber-text-muted">Loading courses...</p>
         </div>
       ) : error ? (
         <div className="text-center py-12">
-          <p className="text-red-600">Failed to load courses. Please try again later.</p>
+          <p className="text-cyber-pink">Failed to load courses. Please try again later.</p>
         </div>
       ) : (
         <FeaturedCourses courses={featuredCourses || []} />
       )}
       
-      <div className="py-16 bg-gray-50 rounded-xl my-12">
+      <div className="py-16 bg-cyber-card rounded-xl my-12 border border-cyber-cyan/20">
         <div className="text-center max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-cyber-text mb-4 font-cyber text-glow-cyan">
             Start Your Learning Journey Today
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-lg text-cyber-text-muted mb-8">
             Join thousands of developers who are mastering observability and software 
             development with our expert-led courses.
           </p>
           <Button
             size="lg"
             onClick={() => navigate('/courses')}
+            variant="primary"
+            className="animate-pulse-glow"
           >
             Browse All Courses
           </Button>
@@ -57,11 +59,14 @@ const HomePage: React.FC = () => {
       
       <TestimonialSection />
       
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl my-12 text-white overflow-hidden">
-        <div className="md:flex md:items-center">
+      <div className="bg-gradient-to-r from-cyber-purple to-cyber-pink rounded-xl my-12 text-cyber-text overflow-hidden border border-cyber-cyan/30 shadow-neon-purple relative">
+        <div className="absolute inset-0 bg-cyber-dark/20"></div>
+        <div className="md:flex md:items-center relative z-10">
           <div className="p-10 md:p-16 md:w-1/2">
-            <h2 className="text-3xl font-bold mb-6">Ready to advance your career with in-demand skills?</h2>
-            <p className="text-blue-100 mb-8">
+            <h2 className="text-3xl font-bold mb-6 font-cyber text-glow-cyan">
+              Ready to advance your career with in-demand skills?
+            </h2>
+            <p className="text-cyber-text-muted mb-8">
               Our courses cover the latest techniques in observability, error tracking, 
               and software development best practices.
             </p>
@@ -69,6 +74,7 @@ const HomePage: React.FC = () => {
               variant="secondary"
               size="lg"
               onClick={() => navigate('/signup')}
+              className="hover:shadow-neon-cyan"
             >
               Sign up for free
             </Button>
@@ -77,8 +83,9 @@ const HomePage: React.FC = () => {
             <img
               src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg"
               alt="Developer coding"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover opacity-80 rounded-r-xl"
             />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-cyber-purple/20"></div>
           </div>
         </div>
       </div>

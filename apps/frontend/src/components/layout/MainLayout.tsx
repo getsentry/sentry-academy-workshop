@@ -8,7 +8,7 @@ const MainLayout: React.FC = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex h-screen overflow-hidden bg-cyber-gradient">
       {isAuthenticated && <Sidebar />}
       <main className={`flex-1 overflow-auto ${isAuthenticated ? 'ml-0' : ''}`}>
         {isAuthenticated && <Navbar />}
