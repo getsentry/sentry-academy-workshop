@@ -11,9 +11,6 @@ import MyCoursesPage from './pages/MyCoursesPage';
 import FavoritesPage from './pages/FavoritesPage';
 import LessonPlansPage from './pages/LessonPlansPage';
 import ProfilePage from './pages/ProfilePage';
-import * as Sentry from '@sentry/react';
-
-const SentryRoutes = Sentry.withSentryReactRouterV7Routing(Routes);
 
 // Protected route component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -30,11 +27,11 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   return <>{children}</>;
 };
 
-function App() {
+const App = () => {
   return (
     <AuthProvider>
       <Router>
-        <SentryRoutes>
+        <Routes>
           <Route path="/login" element={<LoginPage />} />
 
           <Route path="/" element={<MainLayout />}>
@@ -82,10 +79,10 @@ function App() {
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
-        </SentryRoutes>
+        </Routes>
       </Router>
     </AuthProvider>
   );
-}
+};
 
 export default App;

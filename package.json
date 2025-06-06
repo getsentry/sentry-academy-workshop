@@ -12,8 +12,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sentry/react": "^9.26.0",
-    "@sentry/vite-plugin": "^3.5.0",
     "@tailwindcss/vite": "^4.1.8",
     "dotenv": "^16.5.0",
     "lucide-react": "^0.513.0",
