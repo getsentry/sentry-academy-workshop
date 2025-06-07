@@ -1,7 +1,8 @@
+import { drizzle } from 'drizzle-orm/node-postgres';
 import * as schema from './schema';
-import { db } from '../db-config';
+import pool from '../db-config';
 
-export { db };
+export const db = drizzle(pool, { schema });
 
 export const {
   users,
