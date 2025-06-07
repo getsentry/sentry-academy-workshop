@@ -7,7 +7,9 @@ import {
   Star,
   Award,
   Bookmark,
-  Share2
+  Share2,
+  CheckCircle,
+  UserMinus
 } from 'lucide-react';
 import { Lesson } from '../types';
 import { Button } from '../components/ui/Button';
@@ -16,13 +18,19 @@ import LessonList from '../components/lessons/LessonList';
 import LessonContent from '../components/lessons/LessonContent';
 import { api } from '../services/api';
 import { useApi } from '../hooks/useApi';
+import { useAuth } from '../hooks/useAuth';
+import { useEnrollment } from '../hooks/useEnrollment';
 
 const CourseDetailPage: React.FC = () => {
   const { courseId = '' } = useParams<{ courseId: string }>();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const getCourse = useCallback(() => api.courses.getById(courseId), [courseId]);
   const { data: course, loading } = useApi(getCourse);
+
+  // Use the enrollment hook
+  const { isEnrolled, enrollment, loading: enrollmentLoading, enroll, unenroll } = useEnrollment(courseId);
 
   // Fallback to static data if API fails or course not found
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
@@ -60,6 +68,78 @@ const CourseDetailPage: React.FC = () => {
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
     // In a real app, this would update the user's favorites in the database
+  };
+
+  const handleEnroll = async () => {
+    if (!isAuthenticated) {
+      // Redirect to login if not authenticated
+      navigate('/login');
+      return;
+    }
+
+    try {
+      await enroll();
+      alert('Successfully enrolled in the course!');
+    } catch (error) {
+      alert('Failed to enroll in the course. Please try again.');
+    }
+  };
+
+  const handleUnenroll = async () => {
+    if (!confirm('Are you sure you want to unenroll from this course?')) {
+      return;
+    }
+
+    try {
+      await unenroll();
+      alert('Successfully unenrolled from the course.');
+    } catch (error) {
+      alert('Failed to unenroll from the course. Please try again.');
+    }
+  };
+
+  const renderEnrollmentButton = () => {
+    if (!isAuthenticated) {
+      return (
+        <Button
+          leftIcon={<BookOpen size={16} />}
+          onClick={() => navigate('/login')}
+        >
+          Login to Enroll
+        </Button>
+      );
+    }
+
+    if (isEnrolled) {
+      return (
+        <div className="flex gap-3">
+          <Button
+            leftIcon={<BookOpen size={16} />}
+            onClick={() => navigate(`/courses/${courseId}/learn`)}
+          >
+            Continue Learning
+          </Button>
+          <Button
+            variant="outline"
+            leftIcon={<UserMinus size={16} />}
+            onClick={handleUnenroll}
+            disabled={enrollmentLoading}
+          >
+            {enrollmentLoading ? 'Processing...' : 'Unenroll'}
+          </Button>
+        </div>
+      );
+    }
+
+    return (
+      <Button
+        leftIcon={<BookOpen size={16} />}
+        onClick={handleEnroll}
+        disabled={enrollmentLoading}
+      >
+        {enrollmentLoading ? 'Enrolling...' : 'Enroll Now'}
+      </Button>
+    );
   };
 
   if (loading) {
@@ -102,6 +182,12 @@ const CourseDetailPage: React.FC = () => {
                 <Award className="h-3 w-3 mr-1" />
                 {course.level.charAt(0).toUpperCase() + course.level.slice(1)}
               </Badge>
+              {isEnrolled && (
+                <Badge variant="success" className="flex items-center">
+                  <CheckCircle className="h-3 w-3 mr-1" />
+                  Enrolled
+                </Badge>
+              )}
             </div>
 
             <h1 className="text-3xl font-bold text-gray-900 mb-3">{course.title}</h1>
@@ -122,15 +208,14 @@ const CourseDetailPage: React.FC = () => {
                 <span>{course.rating}</span>
                 <span className="text-gray-600 ml-1">({course.reviewCount} reviews)</span>
               </div>
+              <div className="flex items-center">
+                <Users className="h-4 w-4 mr-1" />
+                <span>{course.enrollmentCount} students</span>
+              </div>
             </div>
 
             <div className="flex items-center gap-4">
-              <Button
-                leftIcon={<BookOpen size={16} />}
-                onClick={() => navigate(`/courses/${courseId}/learn`)}
-              >
-                Start Learning
-              </Button>
+              {renderEnrollmentButton()}
 
               <Button
                 variant="outline"
@@ -147,6 +232,22 @@ const CourseDetailPage: React.FC = () => {
                 Share
               </Button>
             </div>
+
+            {/* Progress bar for enrolled users */}
+            {isEnrolled && enrollment && (
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium text-blue-900">Course Progress</span>
+                  <span className="text-sm text-blue-700">{enrollment.progress || 0}% complete</span>
+                </div>
+                <div className="bg-blue-200 rounded-full h-2">
+                  <div
+                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${enrollment.progress || 0}%` }}
+                  ></div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Preview section */}
@@ -242,13 +343,7 @@ const CourseDetailPage: React.FC = () => {
             />
 
             <div className="p-6 border-t border-gray-100">
-              <Button
-                fullWidth
-                leftIcon={<BookOpen size={16} />}
-                onClick={() => navigate(`/courses/${courseId}/learn`)}
-              >
-                Start Learning
-              </Button>
+              {renderEnrollmentButton()}
             </div>
           </div>
         </div>

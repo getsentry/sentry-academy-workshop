@@ -29,6 +29,7 @@
     "@sentry/esbuild-plugin": "^3.5.0",
     "@sentry/node": "^9.26.0",
     "@sentry/profiling-node": "^9.26.0",
+    "better-sqlite3": "^11.10.0",
     "cors": "^2.8.5",
     "drizzle-orm": "^0.44.2",
     "express": "^5.1.0",
