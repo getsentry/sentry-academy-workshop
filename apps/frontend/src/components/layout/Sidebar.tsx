@@ -78,23 +78,6 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
         </button>
       </div>
 
-      {user && !isCollapsed && (
-        <div className="px-4 py-3 mb-4 border-b border-gray-200">
-          <div className="flex items-center">
-            <Avatar
-              src={user.avatar}
-              alt={user.name}
-              fallback={user.name}
-              size="md"
-            />
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">{user.name}</p>
-              <p className="text-xs text-gray-500">{user.email}</p>
-            </div>
-          </div>
-        </div>
-      )}
-
       <nav className="flex-1 px-2 space-y-1 overflow-y-auto">
         <SidebarItem
           to="/"
