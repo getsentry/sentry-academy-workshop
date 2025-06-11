@@ -4,6 +4,7 @@ import { Search, Bell, Menu } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { Avatar } from '../ui/Avatar';
 import { Button } from '../ui/Button';
+import { ThemeToggle } from '../ui/ThemeToggle';
 import { useDebounceCallback } from '../../hooks/useDebounce';
 
 const Navbar: React.FC = () => {
@@ -149,23 +150,25 @@ const Navbar: React.FC = () => {
   const socialInfo = getSocialProfileInfo();
 
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-4">
+    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center flex-1 max-w-lg">
           <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" size={20} />
             <input
               type="text"
               placeholder="Search courses..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 dark:focus:ring-purple-400 dark:focus:border-purple-400"
               defaultValue={searchQuery}
               onChange={debouncedSearch}
             />
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
-          <button className="relative p-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">
+        <div className="flex items-center space-x-2">
+          <ThemeToggle />
+          
+          <button className="relative p-2 text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-colors">
             <Bell size={20} />
             {/* BUG: Show notification indicator based on user settings */}
             {userSettings?.notifications && (
@@ -176,7 +179,7 @@ const Navbar: React.FC = () => {
           <div className="relative">
             <button
               onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               <Avatar
                 src={user?.avatar || socialInfo?.avatar}
@@ -185,8 +188,8 @@ const Navbar: React.FC = () => {
                 size="sm"
               />
               <div className="text-left">
-                <p className="text-sm font-medium text-gray-900">{user?.name}</p>
-                <p className="text-xs text-gray-500">
+                <p className="text-sm font-medium text-gray-900 dark:text-white">{user?.name}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {/* BUG: Show auth provider info for SSO users */}
                   {(user as any)?.authProvider ? `via ${(user as any).authProvider}` : user?.role}
                   {/* BUG: Show verification status from social profile */}
@@ -198,33 +201,33 @@ const Navbar: React.FC = () => {
             </button>
 
             {isProfileMenuOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200">
+              <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-10 border border-gray-200 dark:border-gray-700">
                 {/* BUG: Display user info with assumptions about data structure */}
-                <div className="px-4 py-2 text-xs text-gray-500 border-b">
+                <div className="px-4 py-2 text-xs text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
                   <div>Last login: {lastLoginInfo}</div>
                   {/* BUG: Show privacy level from settings */}
                   <div>Privacy: {userSettings?.privacy}</div>
                   {/* BUG: Show profile completeness for users with missing data */}
                   {(user as any)?.profileIncomplete && (
-                    <div className="text-amber-600 mt-1">⚠ Profile incomplete</div>
+                    <div className="text-amber-600 dark:text-amber-400 mt-1">⚠ Profile incomplete</div>
                   )}
                   {/* BUG: Show SSO warnings if they exist */}
                   {(user as any)?.ssoIncomplete && (
-                    <div className="text-amber-600 mt-1">⚠ Social data limited</div>
+                    <div className="text-amber-600 dark:text-amber-400 mt-1">⚠ Social data limited</div>
                   )}
                 </div>
                 
-                <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                   Your Profile
                   {/* BUG: Show social profile indicator */}
                   {socialInfo && (
-                    <span className="float-right text-xs text-blue-500">
+                    <span className="float-right text-xs text-blue-500 dark:text-blue-400">
                       {socialInfo.provider}
                     </span>
                   )}
                 </a>
                 
-                <a href="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <a href="/settings" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                   Settings
                   {/* BUG: Show settings info that might be missing */}
                   <span className="float-right text-xs text-gray-400">
@@ -234,7 +237,7 @@ const Navbar: React.FC = () => {
                 
                 {/* BUG: Show missing data warnings if they exist */}
                 {(user as any)?.missingData && (
-                  <div className="px-4 py-2 text-xs text-amber-600 border-t">
+                  <div className="px-4 py-2 text-xs text-amber-600 dark:text-amber-400 border-t border-gray-200 dark:border-gray-700">
                     <div>⚠ Some data unavailable:</div>
                     {(user as any).missingData.slice(0, 2).map((warning: string, index: number) => (
                       <div key={index} className="truncate">• {warning}</div>
@@ -244,7 +247,7 @@ const Navbar: React.FC = () => {
                 
                 {/* BUG: Show SSO specific warnings */}
                 {(user as any)?.ssoWarnings && (
-                  <div className="px-4 py-2 text-xs text-amber-600 border-t">
+                  <div className="px-4 py-2 text-xs text-amber-600 dark:text-amber-400 border-t border-gray-200 dark:border-gray-700">
                     <div>⚠ {(user as any).authProvider} Issues:</div>
                     {(user as any).ssoWarnings.slice(0, 2).map((warning: string, index: number) => (
                       <div key={index} className="truncate">• {warning}</div>
@@ -254,7 +257,7 @@ const Navbar: React.FC = () => {
                 
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-t"
+                  className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border-t border-gray-200 dark:border-gray-700"
                 >
                   Sign out
                 </button>

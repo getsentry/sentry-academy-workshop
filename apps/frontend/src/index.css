@@ -1,10 +1,11 @@
 @import 'tailwindcss';
 
-/* Highlight code blocks theme */
+/* Highlight code blocks theme - Light mode */
 pre {
-  background: rgb(20, 20, 20);
+  background: rgb(248, 249, 250);
+  border: 1px solid rgb(229, 231, 235);
   border-radius: 0.5rem;
-  color: rgb(220, 220, 220);
+  color: rgb(31, 41, 55);
   margin: 1.5rem 0;
   padding: 0.75rem 1rem;
 
@@ -16,11 +17,71 @@ pre {
     padding: 0;
   }
 
-  /* Code styling based on Night Wolf Black theme */
+  /* Code styling for light mode */
   .hljs-comment,
   .hljs-quote {
     font-family: var(--font-mono-italic);
     font-style: italic;
+    color: rgb(107, 114, 126);
+  }
+
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-attribute,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-regexp,
+  .hljs-link,
+  .hljs-name,
+  .hljs-selector-id,
+  .hljs-selector-class {
+    color: #dc2626;
+  }
+
+  .hljs-number,
+  .hljs-meta,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-literal,
+  .hljs-type,
+  .hljs-params {
+    color: #d97706;
+  }
+
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet {
+    color: #059669;
+  }
+
+  .hljs-title,
+  .hljs-section {
+    color: #2563eb;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag {
+    color: #9333ea;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: 700;
+  }
+}
+
+/* Dark mode code blocks */
+.dark pre {
+  background: rgb(17, 24, 39);
+  border: 1px solid rgb(55, 65, 81);
+  color: rgb(229, 231, 235);
+
+  /* Code styling for dark mode - Night Wolf Black theme */
+  .hljs-comment,
+  .hljs-quote {
     color: rgb(140, 140, 140);
   }
 
@@ -61,13 +122,5 @@ pre {
   .hljs-keyword,
   .hljs-selector-tag {
     color: #ff69b4;
-  }
-
-  .hljs-emphasis {
-    font-style: italic;
-  }
-
-  .hljs-strong {
-    font-weight: 700;
   }
 }

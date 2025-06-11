@@ -24,14 +24,14 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
+  const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 disabled:opacity-50 disabled:pointer-events-none';
   
   const variantClasses = {
-    primary: 'bg-purple-600 text-white hover:bg-purple-700 focus-visible:ring-purple-500',
-    secondary: 'bg-purple-100 text-purple-900 hover:bg-purple-200 focus-visible:ring-purple-500',
-    outline: 'border border-gray-300 bg-transparent hover:bg-gray-100 focus-visible:ring-gray-500',
-    ghost: 'bg-transparent hover:bg-gray-100 focus-visible:ring-gray-500',
-    link: 'bg-transparent underline-offset-4 hover:underline text-purple-600 hover:text-purple-800 p-0 h-auto'
+    primary: 'bg-purple-600 text-white hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 focus-visible:ring-purple-500 dark:focus-visible:ring-purple-400',
+    secondary: 'bg-purple-100 text-purple-900 hover:bg-purple-200 dark:bg-purple-900/50 dark:text-purple-100 dark:hover:bg-purple-900/70 focus-visible:ring-purple-500 dark:focus-visible:ring-purple-400',
+    outline: 'border border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 focus-visible:ring-gray-500 dark:focus-visible:ring-gray-400',
+    ghost: 'bg-transparent text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 focus-visible:ring-gray-500 dark:focus-visible:ring-gray-400',
+    link: 'bg-transparent underline-offset-4 hover:underline text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 p-0 h-auto'
   };
   
   const sizeClasses = {

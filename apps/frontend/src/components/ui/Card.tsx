@@ -13,8 +13,8 @@ export const Card: React.FC<CardProps> = ({
   onClick,
   hoverEffect = false
 }) => {
-  const baseClasses = 'bg-white rounded-lg shadow-sm overflow-hidden';
-  const hoverClasses = hoverEffect ? 'transition-transform duration-300 hover:scale-[1.02] hover:shadow-md' : '';
+  const baseClasses = 'bg-white dark:bg-gray-800 rounded-lg shadow-sm dark:shadow-gray-900/20 border border-gray-200 dark:border-gray-700 overflow-hidden';
+  const hoverClasses = hoverEffect ? 'transition-transform duration-300 hover:scale-[1.02] hover:shadow-md dark:hover:shadow-gray-900/30' : '';
   const clickClasses = onClick ? 'cursor-pointer' : '';
   
   return (
@@ -32,7 +32,7 @@ export const CardHeader: React.FC<{ className?: string; children: React.ReactNod
   children 
 }) => {
   return (
-    <div className={`p-6 border-b border-gray-100 ${className}`}>
+    <div className={`p-6 border-b border-gray-100 dark:border-gray-700 ${className}`}>
       {children}
     </div>
   );
@@ -54,7 +54,7 @@ export const CardFooter: React.FC<{ className?: string; children: React.ReactNod
   children 
 }) => {
   return (
-    <div className={`p-6 border-t border-gray-100 ${className}`}>
+    <div className={`p-6 border-t border-gray-100 dark:border-gray-700 ${className}`}>
       {children}
     </div>
   );
